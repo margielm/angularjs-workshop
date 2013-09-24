@@ -1,6 +1,7 @@
-angular.module("directives", []).directive("jlSpeaker", function () {
+angular.module("directives", []).directive("mmTest", function () {
     return {
-        templateUrl: "templates/speaker.html",
-        replace: true
+        scope: {text: '@mmAtr'},
+        template: "<div>{{ text }}</div>"
     }
 });
+angular.module("training", ["directives"]);
