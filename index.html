@@ -14,7 +14,8 @@
     <script type="text/javascript" src="js/directives.js"></script>
 </head>
 <body >
-    <input ng-model="value" type="text"/>
-  <div mm-test mm-atr="witaj {{ value }}"></div>
+    <input ng-model="value" type="text"/> <br>
+    Bi-directional binding: <input ng-model="bidir" type="text"/><br>
+    <div mm-test mm-atr="witaj {{ value }}" mm-bi="bidir"></div>
 </body>
 </html>
