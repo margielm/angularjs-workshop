@@ -8894,7 +8894,7 @@
                         if (this.$$nextSibling) this.$$nextSibling.$$prevSibling = this.$$prevSibling;
 
                         // This is bogus code that works around Chrome's GC leak
-                        // see: https://github.com/angular/angular.js/issues/1313#issuecomment-10378451
+                        // see: https://github.com/angular/angular_1.1.5.js/issues/1313#issuecomment-10378451
                         this.$parent = this.$$nextSibling = this.$$prevSibling = this.$$childHead =
                             this.$$childTail = null;
                     },
@@ -9272,7 +9272,7 @@
                 // Android has history.pushState, but it does not update location correctly
                 // so let's not use the history API at all.
                 // http://code.google.com/p/android/issues/detail?id=17471
-                // https://github.com/angular/angular.js/issues/904
+                // https://github.com/angular/angular_1.1.5.js/issues/904
                 history: !!($window.history && $window.history.pushState && !(android < 4)),
                 hashchange: 'onhashchange' in $window &&
                     // IE8 compatible mode lies
@@ -14062,7 +14062,7 @@
      * The directive can be applied to the `<body>` element, but typically a fine-grained application is
      * preferred in order to benefit from progressive rendering of the browser view.
      *
-     * `ngCloak` works in cooperation with a css rule that is embedded within `angular.js` and
+     * `ngCloak` works in cooperation with a css rule that is embedded within `angular_1.1.5.js` and
      *  `angular.min.js` files. Following is the css rule:
      *
      * <pre>
@@ -14076,7 +14076,7 @@
      * during the compilation of the template it deletes the `ngCloak` element attribute, which
      * makes the compiled element visible.
      *
-     * For the best result, `angular.js` script must be loaded in the head section of the html file;
+     * For the best result, `angular_1.1.5.js` script must be loaded in the head section of the html file;
      * alternatively, the css rule (above) must be included in the external stylesheet of the
      * application.
      *
@@ -14965,7 +14965,7 @@
      * @description
      * # Overview
      * `ngPluralize` is a directive that displays messages according to en-US localization rules.
-     * These rules are bundled with angular.js and the rules can be overridden
+     * These rules are bundled with angular_1.1.5.js and the rules can be overridden
      * (see {@link guide/i18n Angular i18n} dev guide). You configure ngPluralize directive
      * by specifying the mappings between
      * {@link http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html
