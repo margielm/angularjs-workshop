@@ -10,12 +10,19 @@
     <script type="text/javascript" src="js/external/jquery.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 
-    <script type="text/javascript" src="js/external/angular.js"></script>
+    <script type="text/javascript" src="js/external/angular_1.2-rc2.js"></script>
     <script type="text/javascript" src="js/directives.js"></script>
 </head>
-<body >
-    <input ng-model="value" type="text"/> <br>
-    Bi-directional binding: <input ng-model="bidir" type="text"/><br>
-    <div mm-test mm-atr="witaj {{ value }}" mm-bi="bidir"></div>
+<body>
+
+<mm-accordion>
+    <mm-accordion-element title="raz">
+        Raz 1
+    </mm-accordion-element>
+    <mm-accordion-element title="dwa">
+        Dwa 2
+    </mm-accordion-element >
+</mm-accordion>
+
 </body>
 </html>
