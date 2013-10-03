@@ -11,14 +11,16 @@ angular.module("directives", [])
             scope: {},
             replace: true,
             transclude: true,
-            controller: function ($scope, $element) {
+            controller: function ($scope, $element, $attrs) {
+                console.log($attrs.id)
                 $scope.size = 0;
+               this.parentId = $attrs.id;
                 this.add = function () {
                     $scope.size = $scope.size + 1;
                     return $scope.size;
                 }
             },
-            template: "<div class='panel-group' id='accordion'>" +
+            template: "<div class='panel-group' >" +
                 "<div class='panel panel-default' ng-transclude>" +
                 "</div>" +
                 "</div>"
@@ -33,11 +35,13 @@ angular.module("directives", [])
             restrict: 'EA',
             link: function (scope, element, attrs, accCtrl) {
                 scope.size = accCtrl.add();
+                console.log(scope);
+                scope.parentId = accCtrl.parentId;
             },
             template: '<div>' +
                 '<div class="panel-heading">' +
                 '<h4 class="panel-title">' +
-                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ size }}" data-parent="#accordion">' +
+                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ size }}" data-parent="#{{parentId}}">' +
                 '{{title}}' +
                 '</a>' +
                 '</h4>' +
