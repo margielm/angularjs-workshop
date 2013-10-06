@@ -20,9 +20,7 @@ angular.module("directives", [])
                     return $scope.size;
                 }
             },
-            template: "<div class='panel-group' >" +
-                "<div class='panel panel-default' ng-transclude>" +
-                "</div>" +
+            template: "<div class='panel-group' ng-transclude>" +
                 "</div>"
         }
     })
@@ -38,7 +36,7 @@ angular.module("directives", [])
                 console.log(scope);
                 scope.parentId = accCtrl.parentId;
             },
-            template: '<div>' +
+            template: '<div class="panel panel-default">' +
                 '<div class="panel-heading">' +
                 '<h4 class="panel-title">' +
                 '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ size }}" data-parent="#{{parentId}}">' +
