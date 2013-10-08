@@ -16,6 +16,9 @@ angular.module("directives", [])
                 this.parentId = $attrs.id;
                 this.add = function () {
                     this.index += 1;
+                };
+                this.getBodyId = function () {
+                    return this.parentId + "_" + this.index;
                 }
             },
             template: "<div class='panel-group' ng-transclude></div>"
@@ -52,14 +55,15 @@ angular.module("directives", [])
             require: '^mmAccordion',
             restrict: 'EA',
             replace: true,
+
             link: function (scope, element, attrs, accCtrl) {
-                scope.index = accCtrl.index;
+                scope.href = accCtrl.getBodyId();
                 scope.parentId = accCtrl.parentId;
             },
             transclude: true,
             template: '<div class="panel-heading">' +
                 '<h4 class="panel-title">' +
-                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ index }}" data-parent="#{{parentId}}" ng-transclude>' +
+                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ href }}" data-parent="#{{parentId}}" ng-transclude>' +
                 '</a>' +
                 '</h4>' +
                 '</div>'
@@ -72,10 +76,10 @@ angular.module("directives", [])
             replace: true,
             transclude: true,
             link: function (scope, element, attrs, accCtrl) {
-                scope.index = accCtrl.index;
+                scope.id = accCtrl.getBodyId();
                 scope.parentId = accCtrl.parentId;
             },
-            template: '<div id="{{ index }}" class="panel-collapse collapse ">' +
+            template: '<div id="{{ id }}" class="panel-collapse collapse ">' +
                 '   <div class="panel-body" ng-transclude>' +
                 '   </div>' +
                 '</div>'
