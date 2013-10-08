@@ -12,14 +12,13 @@ angular.module("directives", [])
             replace: true,
             transclude: true,
             controller: function ($scope, $element, $attrs) {
-                this.size = 0;
+                this.index = 0;
                 this.parentId = $attrs.id;
                 this.add = function () {
-                    this.size += 1;
+                    this.index += 1;
                 }
             },
-            template: "<div class='panel-group' ng-transclude=''>" +
-                "</div>"
+            template: "<div class='panel-group' ng-transclude></div>"
         }
     })
     .directive("mmAccordionElement",function () {
@@ -34,7 +33,6 @@ angular.module("directives", [])
                 accCtrl.add();
             },
             template: function (tElement, tAttributes) {
-                console.log("title" in tAttributes);
                 if ("title" in tAttributes) {
                     return '<div class="panel panel-default">' +
                         '<mm-accordion-header>' +
@@ -55,14 +53,13 @@ angular.module("directives", [])
             restrict: 'EA',
             replace: true,
             link: function (scope, element, attrs, accCtrl) {
-                console.log(accCtrl);
-                scope.size = accCtrl.size;
+                scope.index = accCtrl.index;
                 scope.parentId = accCtrl.parentId;
             },
             transclude: true,
             template: '<div class="panel-heading">' +
                 '<h4 class="panel-title">' +
-                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ size }}" data-parent="#{{parentId}}" ng-transclude>' +
+                '<a class="accordion-toggle" data-toggle="collapse"  href="#{{ index }}" data-parent="#{{parentId}}" ng-transclude>' +
                 '</a>' +
                 '</h4>' +
                 '</div>'
@@ -75,10 +72,10 @@ angular.module("directives", [])
             replace: true,
             transclude: true,
             link: function (scope, element, attrs, accCtrl) {
-                scope.size = accCtrl.size;
+                scope.index = accCtrl.index;
                 scope.parentId = accCtrl.parentId;
             },
-            template: '<div id="{{ size }}" class="panel-collapse collapse ">' +
+            template: '<div id="{{ index }}" class="panel-collapse collapse ">' +
                 '   <div class="panel-body" ng-transclude>' +
                 '   </div>' +
                 '</div>'
