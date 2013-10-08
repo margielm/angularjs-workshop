@@ -8,17 +8,18 @@ angular.module("directives", [])
     .directive("mmAccordion", function () {
         return {
             restrict: 'AE',
-            scope: {},
             replace: true,
             transclude: true,
             controller: function ($scope, $element, $attrs) {
                 this.index = 0;
-                this.parentId = $attrs.id;
+                if ("onlyOne" in $attrs) {
+                    this.parentId = $attrs.id;
+                };
                 this.add = function () {
                     this.index += 1;
                 };
                 this.getBodyId = function () {
-                    return this.parentId + "_" + this.index;
+                    return $attrs.id + "_" + this.index;
                 }
             },
             template: "<div class='panel-group' ng-transclude></div>"
@@ -31,7 +32,6 @@ angular.module("directives", [])
             replace: true,
             transclude: true,
             restrict: 'EA',
-
             link: function (scope, element, attrs, accCtrl) {
                 accCtrl.add();
             },
