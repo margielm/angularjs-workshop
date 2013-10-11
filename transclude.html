@@ -14,8 +14,8 @@
     <script type="text/javascript">
         angular.module("training", [])
                 .directive("mmEditableLabel", function () {
-                    var editTemplate = "<textarea ng-model='content' ng-show='edit' ng-dblclick='view()'/>";
-                    var viewTemplate = "<div ng-hide='edit' ng-dblclick='edit()' >{{content}}</div>";
+                    var editTemplate = "<textarea ng-model='content' ng-show='isEdit' ng-dblclick='view()'/>";
+                    var viewTemplate = "<div ng-hide='isEdit' ng-dblclick='edit()' >{{content}}</div>";
                     return {
                         restrict: 'E',
                         compile: function (tElement, attrs, scope) {
@@ -25,12 +25,12 @@
                             tElement.append(viewTemplate);
                             return function (scope, element, attrs) {
                                 scope.content = content;
-                                scope.edit = false;
+                                scope.isEdit = false;
                                 scope.edit = function () {
-                                    scope.edit = true;
+                                    scope.isEdit = true;
                                 }
                                 scope.view = function () {
-                                    scope.edit = false;
+                                    scope.isEdit = false;
                                 }
                             }
                         }
