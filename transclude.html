@@ -13,28 +13,30 @@
     <script type="text/javascript" src="js/external/angular_1.2-rc2.js"></script>
     <script type="text/javascript">
         angular.module("training", [])
-                .directive("mmCounter", function () {
+                .directive("mmEditableLabel", function () {
                     return {
                         restrict: 'E',
-                        scope: {value: '@start'},
-                        controller: function ($scope, $timeout) {
-                            function updateCounter() {
-                                $timeout(function () {
-                                    $scope.value = parseInt($scope.value) + 1;
-                                    updateCounter();
-                                }, 1000);
+                        transclude: true,
+                        controller: function ($scope) {
+                            this.edit = false;
+                            $scope.edit = function () {
+                                $scope.edit = true;
                             }
-
-                            updateCounter();
+                            $scope.view = function () {
+                                $scope.edit = false;
+                            }
                         },
-                        template: ' <div>{{value}}</div>'
+                        template: ' <div ng-transclude ng-dblclick="edit()" ng-hide="edit">' +
+                                '</div>' +
+                                ' <textarea  rows="10" ng-transclude ng-dblclick="view()" ng-show="edit" />'
                     }
                 });
     </script>
 </head>
 <body>
-<mm-counter start="1"></mm-counter>
-<mm-counter start="20"></mm-counter>
+<mm-editable-label>
+    to jest mój tekst
+</mm-editable-label>
 
 
 </body>
