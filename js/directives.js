@@ -11,16 +11,22 @@ angular.module("directives", [])
             replace: true,
             transclude: true,
             controller: function ($scope, $element, $attrs) {
-                this.index = 0;
+                this.elements = [];
                 if ("onlyOne" in $attrs) {
                     this.parentId = $attrs.id;
-                };
-                this.add = function () {
-                    this.index += 1;
+                }
+                this.add = function (id) {
+                    if (id == undefined) {
+                        id = $attrs.id + "_" + this.elements.length;
+                    }
+                    console.log("adding " + id);
+                    this.elements.push(id);
+                    return id;
                 };
                 this.getBodyId = function () {
-                    return $attrs.id + "_" + this.index;
+                    return this.elements[this.elements.length - 1];
                 }
+
             },
             template: "<div class='panel-group' ng-transclude></div>"
         }
@@ -28,22 +34,22 @@ angular.module("directives", [])
     .directive("mmAccordionElement",function () {
         return {
             require: '^mmAccordion',
-            scope: {title: '@'},
+            scope: {title: '@', elementId: '@'},
             replace: true,
             transclude: true,
             restrict: 'EA',
-            link: function (scope, element, attrs, accCtrl) {
-                accCtrl.add();
+            controller: function ($scope) {
+                this.elementId = $scope.elementId;
             },
             template: function (tElement, tAttributes) {
                 if ("title" in tAttributes) {
                     return '<div class="panel panel-default">' +
-                        '<mm-accordion-header>' +
-                        '   {{title}}' +
-                        '</mm-accordion-header>' +
-                        '<mm-accordion-body >' +
-                        '<div ng-transclude></div>' +
-                        '</mm-accordion-body>' +
+                        '   <mm-accordion-header>' +
+                        '    {{title}}' +
+                        '   </mm-accordion-header>' +
+                        '   <mm-accordion-body >' +
+                        '    <div ng-transclude></div>' +
+                        '   </mm-accordion-body>' +
                         '</div>';
                 } else {
                     return '<div class="panel panel-default" ng-transclude></div>';
@@ -52,13 +58,15 @@ angular.module("directives", [])
         }
     }).directive("mmAccordionHeader", function () {
         return {
-            require: '^mmAccordion',
+            require: ['^mmAccordionElement', '^mmAccordion'],
             restrict: 'EA',
             replace: true,
 
-            link: function (scope, element, attrs, accCtrl) {
-                scope.href = accCtrl.getBodyId();
-                scope.parentId = accCtrl.parentId;
+            link: function (scope, element, attrs, ctrls) {
+                console.log("header");
+                ctrls[1].add(ctrls[0].elementId);
+                scope.href = ctrls[1].getBodyId();
+                scope.parentId = ctrls[1].parentId;
             },
             transclude: true,
             template: '<div class="panel-heading">' +
@@ -75,9 +83,10 @@ angular.module("directives", [])
             restrict: 'EA',
             replace: true,
             transclude: true,
-            link: function (scope, element, attrs, accCtrl) {
-                scope.id = accCtrl.getBodyId();
-                scope.parentId = accCtrl.parentId;
+            scope: {},
+            link: function (scope, element, attrs, ctrl) {
+                console.log("body");
+                scope.id = ctrl.getBodyId();
             },
             template: '<div id="{{ id }}" class="panel-collapse collapse ">' +
                 '   <div class="panel-body" ng-transclude>' +
