@@ -13,12 +13,24 @@
     <script type="text/javascript" src="js/external/angular_1.2-rc2.js"></script>
     <script type="text/javascript">
         angular.module("training", [])
-                .directive("mmCounter", function(){
+                .directive("mmCounter", function () {
                     return {
                         restrict: 'E',
                         scope: {},
-                        link: function (scope, element, attrs) {
+                        controller: function ($scope, $timeout) {
+                            function updateCounter() {
+                                $timeout(function () {
+                                    $scope.value = parseInt($scope.value) + 1;
+                                    updateCounter();
+                                }, 1000);
+
+                            }
+
+                            updateCounter();
+                        },
+                        link: function (scope, element, attrs, timeout) {
                             scope.value = attrs.start;
+
                         },
                         template: ' <div>{{value}}</div>'
                     }
