@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="training">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <script type="text/javascript" src="js/external/jquery.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/external/angular_1.2-rc2.js"></script>
+    <script type="text/javascript">
+        angular.module("training", [])
+                .directive("mmCounter", function(){
+                    return {
+                        restrict: 'E',
+                        link: function (scope, element, attrs) {
+                            scope.value = attrs.start;
+                        },
+                        template: ' <div>{{value}}</div>'
+                    }
+                });
+    </script>
+</head>
+<body>
+<mm-counter start="1"></mm-counter>
+<mm-counter start="20"></mm-counter>
+
+
+</body>
+</html>
