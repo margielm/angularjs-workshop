@@ -16,7 +16,7 @@
                 .directive("mmCounter", function () {
                     return {
                         restrict: 'E',
-                        scope: {},
+                        scope: {value : '@start'},
                         controller: function ($scope, $timeout) {
                             function updateCounter() {
                                 $timeout(function () {
@@ -27,10 +27,6 @@
                             }
 
                             updateCounter();
-                        },
-                        link: function (scope, element, attrs, timeout) {
-                            scope.value = attrs.start;
-
                         },
                         template: ' <div>{{value}}</div>'
                     }
