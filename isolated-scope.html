@@ -16,6 +16,7 @@
                 .directive("mmCounter", function(){
                     return {
                         restrict: 'E',
+                        scope: {},
                         link: function (scope, element, attrs) {
                             scope.value = attrs.start;
                         },
