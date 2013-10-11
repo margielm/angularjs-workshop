@@ -14,21 +14,26 @@
     <script type="text/javascript">
         angular.module("training", [])
                 .directive("mmEditableLabel", function () {
+                    var editTemplate = "<textarea ng-model='content' ng-show='edit' ng-dblclick='view()'/>";
+                    var viewTemplate = "<div ng-hide='edit' ng-dblclick='edit()' >{{content}}</div>";
                     return {
                         restrict: 'E',
-                        transclude: true,
-                        controller: function ($scope) {
-                            this.edit = false;
-                            $scope.edit = function () {
-                                $scope.edit = true;
+                        compile: function (tElement, attrs, scope) {
+
+                            var content = tElement.text().trim();
+                            tElement.html(editTemplate);
+                            tElement.append(viewTemplate);
+                            return function (scope, element, attrs) {
+                                scope.content = content;
+                                scope.edit = false;
+                                scope.edit = function () {
+                                    scope.edit = true;
+                                }
+                                scope.view = function () {
+                                    scope.edit = false;
+                                }
                             }
-                            $scope.view = function () {
-                                $scope.edit = false;
-                            }
-                        },
-                        template: ' <div ng-transclude ng-dblclick="edit()" ng-hide="edit">' +
-                                '</div>' +
-                                ' <textarea  rows="10" ng-transclude ng-dblclick="view()" ng-show="edit" />'
+                        }
                     }
                 });
     </script>
