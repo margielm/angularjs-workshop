@@ -15,22 +15,11 @@
         angular.module("training", [])
                 .directive("wjHelloTag", function () {
                     return {
-                        restrict: 'E',
-                        template: "<div class='hello-tag'>" +
-                                "Hello<br/> My name is" +
-                                "<div class='inner'>" +
-                                "{{name}}" +
-                                "</div>" +
-                                "</div>",
-                        link: function (scope, element, attrs) {
-                            scope.name = attrs.name;
-                        }
                     }
                 });
     </script>
 </head>
 <body>
-<wj-hello-tag name='Warsjawa'></wj-hello-tag>
 
 
 </body>
