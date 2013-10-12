@@ -16,23 +16,34 @@
                 .directive("wjHelloTag", function () {
                     return {
                         restrict: 'E',
-                        scope: {name1: '&name'} ,
+                        scope: {name: '@'} ,
                         template: "<div class='hello-tag'>" +
                                 "Hello<br/> My name is" +
                                 "<div class='inner'>" +
                                 "{{name}}" +
                                 "</div>" +
-                                "</div>" ,
-                        link: function (scope){
-                            scope.name = scope.name1()
+                                "</div>",
+                        controller:function($element, $timeout){
+                            var colors =["red", "black", "green"];
+                            var idx = 0;
+                            function switchColor(){
+                                console.log($element);
+                                $timeout(function(){
+                                    $element.find(".inner").css("color", colors[idx]);
+                                    idx = idx+1;
+                                    if (idx > colors.length){
+                                        idx = 0;
+                                    }
+                                    switchColor();
+                                }, 1000);
+                            }
+                            switchColor()
                         }
                     }
                 });
     </script>
 </head>
 <body>
-<input type="text" ng-model="abc">
-{{abc}}
 <wj-hello-tag name='abc'></wj-hello-tag>
 
 
