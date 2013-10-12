@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="training">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <script type="text/javascript" src="js/external/jquery.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/external/angular_1.2-rc2.js"></script>
+    <script type="text/javascript">
+        angular.module("training", [])
+                .directive("wjHelloTag", function () {
+                    return {
+                        restrict: 'E',
+                        template: "<div class='hello-tag'>" +
+                                "Hello<br/> My name is" +
+                                "<div class='inner'>" +
+                                "{{name}}" +
+                                "</div>" +
+                                "</div>",
+                        link: function (scope, element, attrs) {
+                            scope.name = attrs.name;
+                        }
+                    }
+                });
+    </script>
+</head>
+<body>
+<wj-hello-tag name='Warsjawa'></wj-hello-tag>
+
+
+</body>
+</html>
