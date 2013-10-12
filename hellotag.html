@@ -15,11 +15,25 @@
         angular.module("training", [])
                 .directive("wjHelloTag", function () {
                     return {
+                        restrict: 'E',
+                        scope: {name1: '&name'} ,
+                        template: "<div class='hello-tag'>" +
+                                "Hello<br/> My name is" +
+                                "<div class='inner'>" +
+                                "{{name}}" +
+                                "</div>" +
+                                "</div>" ,
+                        link: function (scope){
+                            scope.name = scope.name1()
+                        }
                     }
                 });
     </script>
 </head>
 <body>
+<input type="text" ng-model="abc">
+{{abc}}
+<wj-hello-tag name='abc'></wj-hello-tag>
 
 
 </body>
